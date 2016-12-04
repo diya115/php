@@ -1,20 +1,25 @@
 <?php 
+// Turn on output buffering  
+ob_start();  
 
-$ipAddress=$_SERVER['REMOTE_ADDR'];
-$macAddr=false;
+//Get the ipconfig details using system commond  
+system('ipconfig /all');  
 
-#run the external command, break output into lines
-$arp=`arp -a $ipAddress`;
-$lines=explode("\n", $arp);
+// Capture the output into a variable  
+$mycomsys=ob_get_contents();  
 
-#look for the output line describing our IP address
-foreach($lines as $line)
-{
-   $cols=preg_split('/\s+/', trim($line));
-   if ($cols[0]==$ipAddress)
-   {
-       $macAddr=$cols[1];
-   }
-}
+// Clean (erase) the output buffer  
+ob_clean();  
+
+$find_mac = "Physical"; 
+//find the "Physical" & Find the position of Physical text  
+
+$pmac = strpos($mycomsys, $find_mac);  
+// Get Physical Address  
+
+$macaddress=substr($mycomsys,($pmac+36),17);  
+//Display Mac Address  
+
+echo $macaddress;
 
 ?>
