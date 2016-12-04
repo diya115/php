@@ -1,6 +1,6 @@
 <?php 
 
-echo "Hello World"."Very Nice";
+echo "Welcome with first Test from GITHUB";
 
 
 
